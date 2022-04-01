@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import { Provider as ReduxProvider } from "react-redux";
+import { BrowserRouter as Router, Navigate, Route } from "react-router-dom";
+
+import { theme } from "./theme";
+import store from "./redux/store";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Auth from "./components/Auth/Auth";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(true);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ReduxProvider store={store}>
+      <ThemeProvider theme={theme}>
+        <Router>{loggedIn ? <Dashboard /> : <Auth />}</Router>
+      </ThemeProvider>
+    </ReduxProvider>
   );
 }
 
