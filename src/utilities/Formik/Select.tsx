@@ -36,7 +36,7 @@ function SelectField({ label, name, options, ...rest }: SelectProps) {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={field.value}
+              // value={field.value}
               label={label}
               {...rest}
               {...field}

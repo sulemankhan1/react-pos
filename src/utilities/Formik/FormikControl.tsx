@@ -3,6 +3,7 @@ import Textarea from "./Textarea";
 import Select from "./Select";
 import RadioButtons from "./RadioButtons";
 import CheckboxGroup from "./CheckboxGroup";
+import DatePicker from "./DatePicker";
 
 interface optionsProps {
   key: string;
@@ -17,12 +18,14 @@ interface FormikControlProps {
   variant?: string;
   options?: optionsProps[];
   rows?: number;
+  inputFormat?: string;
 }
 
 function FormikControl({
   control,
   rows,
   options,
+  inputFormat,
   ...rest
 }: FormikControlProps) {
   switch (control) {
@@ -36,6 +39,9 @@ function FormikControl({
       return <RadioButtons options={options} {...rest} />;
     case "checkbox":
       return <CheckboxGroup options={options} {...rest} />;
+    case "date":
+      return <DatePicker inputFormat={inputFormat} {...rest} />;
+
     default:
       return null;
   }

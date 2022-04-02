@@ -1,5 +1,6 @@
 import { Formik, Form } from "formik";
 import { Button, Grid } from "@mui/material";
+import { format } from "date-fns";
 import * as Yup from "yup";
 
 import FormikControl from "../../../utilities/Formik/FormikControl";
@@ -11,6 +12,7 @@ const initialValues = {
   country: "",
   gender: "",
   skills: [],
+  dateOfBirth: "",
 };
 
 const validationSchema = Yup.object({
@@ -18,7 +20,10 @@ const validationSchema = Yup.object({
   description: Yup.string().required("Description is Required"),
   country: Yup.string().required("Country is Required"),
   gender: Yup.string().required("Gender is Required"),
-  skills: Yup.array().required("To"),
+  skills: Yup.array().min(1, "Please Select atleast one Skill"),
+  dateOfBirth: Yup.date()
+    .typeError("Please Select a Valid Date")
+    .required("Date is Required"),
 });
 
 // options
@@ -32,6 +37,12 @@ const genderOptions = [
   { key: "Male", value: "male" },
   { key: "Female", value: "female" },
   { key: "Other", value: "other" },
+];
+
+const skillsOptions = [
+  { key: "HTML", value: "html" },
+  { key: "CSS", value: "css" },
+  { key: "JS", value: "js" },
 ];
 
 function AddProduct() {
@@ -81,6 +92,22 @@ function AddProduct() {
                   options={genderOptions}
                 />
               </Grid>
+              <Grid item>
+                <FormikControl
+                  control="checkbox"
+                  label="Skills"
+                  name="skills"
+                  options={skillsOptions}
+                />
+              </Grid>
+              <Grid item>
+                <FormikControl
+                  control="date"
+                  label="Date of Birth"
+                  name="dateOfBirth"
+                />
+              </Grid>
+
               <Grid item>
                 <Button
                   type="submit"

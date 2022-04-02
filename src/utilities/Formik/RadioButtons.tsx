@@ -39,6 +39,7 @@ function RadioButtons({ label, name, options, ...rest }: RadioButtonsProps) {
               value={field.value}
               {...rest}
               {...field}
+              color="success"
             >
               {options &&
                 options.map((option) => {

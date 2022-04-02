@@ -1,10 +1,10 @@
 import { Field } from "formik";
 import {
+  Checkbox,
   FormControl,
   FormLabel,
-  RadioGroup,
   FormControlLabel,
-  Radio,
+  FormGroup,
   FormHelperText,
 } from "@mui/material";
 
@@ -30,28 +30,29 @@ function CheckboxGroup({ label, name, options, ...rest }: SelectProps) {
       {({ field, form }: FieldProps) => {
         return (
           <FormControl
-            fullWidth
+            component="fieldset"
+            variant="standard"
             error={Boolean(form.touched[name] && form.errors[name])}
           >
-            <FormLabel id="demo-simple-select-label">{label}</FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              value={field.value}
-              {...rest}
-              {...field}
-            >
+            <FormLabel component="legend">{label}</FormLabel>
+            <FormGroup>
               {options &&
                 options.map((option) => {
                   return (
                     <FormControlLabel
-                      value={option.value}
-                      control={<Radio />}
+                      control={
+                        <Checkbox
+                          {...field}
+                          value={option.value}
+                          checked={field.value.includes(option.value)}
+                        />
+                      }
                       label={option.key}
-                      key={option.key}
+                      key={option.value}
                     />
                   );
                 })}
-            </RadioGroup>
+            </FormGroup>
             {form.touched[name] && form.errors[name] && (
               <FormHelperText>{form.errors[name]}</FormHelperText>
             )}
