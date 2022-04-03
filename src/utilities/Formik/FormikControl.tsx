@@ -23,6 +23,7 @@ interface FormikControlProps {
 
 function FormikControl({
   control,
+  type,
   rows,
   options,
   inputFormat,
@@ -30,7 +31,7 @@ function FormikControl({
 }: FormikControlProps) {
   switch (control) {
     case "input":
-      return <Input {...rest} />;
+      return <Input type={type} {...rest} />;
     case "textarea":
       return <Textarea rows={rows} {...rest} />;
     case "select":

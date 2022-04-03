@@ -1,18 +1,16 @@
-import React from "react";
+import Collapse from "@mui/material/Collapse";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
-import SendIcon from "@mui/icons-material/Send";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import StarBorder from "@mui/icons-material/StarBorder";
+import { SidebarProps } from "./types";
 
 const useStyles = makeStyles({
   sidebarContainer: {
@@ -20,56 +18,106 @@ const useStyles = makeStyles({
     height: "100vh",
   },
   list: {
-    width: "100%",
-    maxWidth: 460,
     bgcolor: "background.paper",
   },
 });
-function Sidebar() {
-  const [open, setOpen] = React.useState(false);
+function Sidebar(props: SidebarProps) {
+  const { isMd } = props;
+  const { setDrawerOpen } = props;
+  const [menuItems, setMenuItems] = React.useState(
+    props.intialMenuOptions || []
+  );
+  const [activeMenu, setActiveMenu] = React.useState("Products");
+  const [open, setOpen] = React.useState(false); // menu open close
   const classes = useStyles();
 
   const handleClick = () => {
     setOpen(!open);
   };
 
+  useEffect(() => {
+    const routeName = window.location.pathname.split("/")[1];
+
+    menuItems.map((route) => {
+      if (route.name.toLowerCase() === routeName.toLowerCase()) {
+        setActiveMenu(route.name);
+      }
+      // TODO: sub Menu item and its pages should be active when on sub page
+      route.subMenu?.map((subRoute) => {
+        if (subRoute.link === window.location.pathname) {
+          setActiveMenu(subRoute.name);
+          setOpen(true);
+        }
+      });
+    });
+  }, [window.location.pathname]);
+
   return (
     <Grid
       container
       className={classes.sidebarContainer}
-      sx={{ boxShadow: 1, mr: 2 }}
+      sx={{ boxShadow: isMd ? 0 : 1 }}
     >
       <Grid item xs={12}>
         <List className={classes.list} component="nav">
-          <ListItemButton>
-            <ListItemIcon>
-              <SendIcon />
-            </ListItemIcon>
-            <ListItemText primary="Sent mail" />
-          </ListItemButton>
-          <ListItemButton>
-            <ListItemIcon>
-              <DraftsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Drafts" />
-          </ListItemButton>
-          <ListItemButton onClick={handleClick}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText primary="Starred" />
-              </ListItemButton>
-            </List>
-          </Collapse>
+          {menuItems?.map((item) => {
+            if (item.subMenu) {
+              return (
+                <React.Fragment key={item.name}>
+                  <ListItemButton
+                    component={Link}
+                    to={item.link}
+                    selected={activeMenu === item.name}
+                    onClick={() => {
+                      setActiveMenu(item.name);
+                      // TODO: BELOW IS NOT WORKING
+                      if (setDrawerOpen) setDrawerOpen(false);
+                      handleClick();
+                    }}
+                  >
+                    <ListItemIcon>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.name} />
+                    {open ? <ExpandLess /> : <ExpandMore />}
+                  </ListItemButton>
+                  <Collapse in={open} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {item.subMenu.map((subItem) => {
+                        return (
+                          <ListItemButton
+                            key={subItem.name}
+                            component={Link}
+                            to={subItem.link}
+                            selected={activeMenu === subItem.name}
+                            onClick={() => {
+                              if (setDrawerOpen) setDrawerOpen(false);
+                              setActiveMenu(subItem.name);
+                            }}
+                            sx={{ pl: 4 }}
+                          >
+                            <ListItemIcon>{subItem.icon}</ListItemIcon>
+                            <ListItemText primary={subItem.name} />
+                          </ListItemButton>
+                        );
+                      })}
+                    </List>
+                  </Collapse>
+                </React.Fragment>
+              );
+            } else {
+              return (
+                <ListItemButton
+                  key={item.name}
+                  component={Link}
+                  to={item.link}
+                  selected={activeMenu === item.name}
+                  onClick={() => setActiveMenu(item.name)}
+                >
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.name} />
+                </ListItemButton>
+              );
+            }
+          })}
         </List>
       </Grid>
     </Grid>

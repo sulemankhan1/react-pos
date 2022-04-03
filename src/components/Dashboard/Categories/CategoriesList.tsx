@@ -9,17 +9,13 @@ import DataTable from "../../../utilities/Table/TableView";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 70 },
-  { field: "product", headerName: "Product", width: 130 },
-  { field: "code", headerName: "Code", width: 70 },
-  { field: "category", headerName: "Category", width: 130 },
-  { field: "price", headerName: "Price", width: 70 },
-  { field: "brandName", headerName: "Brand Name", width: 130 },
-  { field: "cost", headerName: "Cost", width: 70 },
-  { field: "qty", headerName: "Quantity", width: 130 },
+  { field: "Name", headerName: "Name", width: 200 },
+  { field: "Code", headerName: "Code", width: 200 },
+  { field: "AddedBy", headerName: "Added By", width: 200 },
   {
-    field: "action",
+    field: "Action",
     headerName: "Action",
-    width: 130,
+    width: 200,
     renderCell: () => {
       return (
         <>
@@ -38,53 +34,20 @@ const columns: GridColDef[] = [
 const rows = [
   {
     id: 1,
-    product: "Nike Shoes",
-    code: "NIS01",
-    category: "Shoes",
-    price: "$78.00",
-    brandName: "Nike",
-    cost: "$50.00",
-    qty: "100.00",
-  },
-  {
-    id: 2,
-    product: "Nike Shoes",
-    code: "NIS01",
-    category: "Shoes",
-    price: "$78.00",
-    brandName: "Nike",
-    cost: "$50.00",
-    qty: "100.00",
-  },
-  {
-    id: 3,
-    product: "Nike Shoes",
-    code: "NIS01",
-    category: "Shoes",
-    price: "$78.00",
-    brandName: "Nike",
-    cost: "$50.00",
-    qty: "100.00",
-  },
-  {
-    id: 4,
-    product: "Nike Shoes",
-    code: "NIS01",
-    category: "Shoes",
-    price: "$78.00",
-    brandName: "Nike",
-    cost: "$50.00",
-    qty: "100.00",
+    Name: "Computer",
+    Code: "CS1",
+    AddedBy: "Test user",
+    Action: "",
   },
 ];
 
-function ProductsList() {
+function CategoriesList() {
   return (
     <>
       <Grid container justifyContent="space-between" mb={2}>
         <Grid item>
           <Typography variant="h5" gutterBottom>
-            Products
+            Categories
           </Typography>
         </Grid>
         <Grid item>
@@ -93,9 +56,9 @@ function ProductsList() {
             variant="outlined"
             size="small"
             component={Link}
-            to="/products/new"
+            to="/categories/new"
           >
-            <AddIcon /> Add Product
+            <AddIcon /> Add Category
           </Button>
         </Grid>
       </Grid>
@@ -104,4 +67,4 @@ function ProductsList() {
   );
 }
 
-export default ProductsList;
+export default CategoriesList;

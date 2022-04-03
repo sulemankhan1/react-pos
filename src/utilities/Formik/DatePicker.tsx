@@ -31,6 +31,7 @@ function CheckboxGroup({
             component="fieldset"
             variant="standard"
             error={Boolean(form.touched[name] && form.errors[name])}
+            style={{ width: "100%" }}
           >
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker

@@ -7,48 +7,42 @@ import { Grid, Typography, Button, Breadcrumbs, Link } from "@mui/material";
 import FormikControl from "../../../utilities/Formik/FormikControl";
 
 const initialValues = {
-  productType: "",
-  name: "",
-  code: "",
-  barcode: "",
-  category: "",
-  cost: 0,
-  price: 0,
-  taxMethod: "",
-  quantity: 0,
-  image: "",
-  description: "",
+  date: "",
+  referenceNo: "",
+  biller: "",
+  customer: "",
+  orderTax: "",
+  orderDiscount: "",
+  shipping: "",
+  document: "",
+  saleStatus: "",
+  paymentStatus: "",
+  saleNotes: "",
 };
 
 const validationSchema = Yup.object({
-  productType: Yup.string().required("Product Type Required"),
-  name: Yup.string().required("Name is Required"),
-  code: Yup.string().required("Please enter a Code"),
-  barcode: Yup.string().required("Barcode is Required"),
-  category: Yup.string().required("Please select a Category"),
-  cost: Yup.number().required("Please enter Cost"),
-  price: Yup.number().required("Please enter Price"),
-  taxMethod: Yup.string().required("Please select a Tax Method"),
-  quantity: Yup.number()
-    .required("Please enter Quantity")
-    .min(1, "Quantity must be greater than 0"),
+  date: Yup.date()
+    .typeError("Please Select a Valid Date")
+    .required("Date is Required"),
+  referenceNo: Yup.string().required("Reference Number is Required"),
+  biller: Yup.string().required("Please Select Biller"),
+  customer: Yup.string().required("Please Select Customer"),
+  orderTax: Yup.string().required("Please Select Tax"),
+  orderDiscount: Yup.number().required("Please Enter Order Discount"),
+  saleStatus: Yup.string().required("Please select Sale Status"),
+  paymentStatus: Yup.string().required("Please Select Payment Status"),
+  saleNotes: Yup.string().required("Sales Notes Required"),
 });
 
-const productTypeOptions = [
-  { key: "Standard", value: "standard" },
-  { key: "Combo", value: "combo" },
-  { key: "Digital", value: "digital" },
-  { key: "Service", value: "service" },
+const billerOptions = [
+  { key: "Biller 1", value: "biller1" },
+  { key: "Biller 2", value: "biller2" },
 ];
 
-const categoryOptions = [
-  { key: "Beauty", value: "beauty" },
-  { key: "Grocery", value: "grocery" },
-  { key: "Food", value: "food" },
-  { key: "Furniture", value: "furniture" },
-  { key: "Shoes", value: "shoes" },
-  { key: "Frames", value: "frames" },
-  { key: "Jewellery", value: "jewellery" },
+const customersList = [
+  { key: "Customer 1", value: "customer1" },
+  { key: "Customer 2", value: "customer2" },
+  { key: "Customer 3", value: "customer3" },
 ];
 
 const taxMethodOptions = [
@@ -56,7 +50,17 @@ const taxMethodOptions = [
   { key: "Inclusive", value: "inclusive" },
 ];
 
-function AddProduct() {
+const statusOptions = [
+  { key: "Completed", value: "completed" },
+  { key: "Pending", value: "pending" },
+];
+
+const paymentOptions = [
+  { key: "Paid", value: "paid" },
+  { key: "Pending", value: "pending" },
+];
+
+function AddSale() {
   const onSubmit = (values: any) => {
     // const onSubmit = (values: { [field: string]: any }) => {
     console.log("form values: ", values);
@@ -71,16 +75,16 @@ function AddProduct() {
               underline="hover"
               color="inherit"
               component={RouteLink}
-              to="/products"
+              to="/sales"
             >
-              Products
+              Sales
             </Link>
-            <Typography color="text.primary">New Product</Typography>
+            <Typography color="text.primary">New Sale</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid container mb={2}>
           <Grid item>
-            <Typography variant="h5">Add New Product</Typography>
+            <Typography variant="h5">Add New Sale</Typography>
           </Grid>
         </Grid>
         <Formik
@@ -91,99 +95,91 @@ function AddProduct() {
           {(formik: any) => {
             return (
               <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <FormikControl
-                    control="select"
-                    name="productType"
-                    label="Product Type"
-                    options={productTypeOptions}
-                  />
-                </Grid>
-
                 <Grid item xs={12} md={6}>
-                  <FormikControl
-                    control="input"
-                    type="text"
-                    name="name"
-                    label="Name"
-                  />
+                  <FormikControl control="date" name="date" label="Date" />
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <FormikControl
                     control="input"
                     type="text"
-                    name="code"
-                    label="Code"
+                    name="referenceNo"
+                    label="Reference No"
                   />
                 </Grid>
 
                 <Grid item xs={12} md={6}>
                   <FormikControl
-                    control="input"
-                    type="text"
-                    name="barcode"
-                    label="Barcode"
+                    control="select"
+                    name="biller"
+                    label="Biller"
+                    options={billerOptions}
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <FormikControl
                     control="select"
-                    name="category"
-                    label="Category"
-                    options={categoryOptions}
+                    name="customer"
+                    label="Customer"
+                    options={customersList}
                   />
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                  <FormikControl
-                    control="input"
-                    type="number"
-                    name="cost"
-                    label="Cost"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <FormikControl
-                    control="input"
-                    type="number"
-                    name="price"
-                    label="Price"
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
                   <FormikControl
                     control="select"
-                    name="taxMethod"
-                    label="Tax Method"
+                    name="orderTax"
+                    label="Order Tax"
                     options={taxMethodOptions}
                   />
                 </Grid>
-
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6}>
                   <FormikControl
                     control="input"
                     type="number"
-                    name="quantity"
-                    label="Quantity"
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <FormikControl
-                    control="input"
-                    type="file"
-                    name="image"
-                    label="Choose Image"
+                    name="orderDiscount"
+                    label="Order Discount"
                   />
                 </Grid>
 
                 <Grid item xs={12}>
                   <FormikControl
                     control="textarea"
+                    name="shipping"
+                    label="Shipping"
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <FormikControl
+                    control="input"
                     type="file"
-                    name="description"
-                    label="Description"
+                    name="document"
+                    label="Attach Document"
+                  />
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <FormikControl
+                    control="select"
+                    name="saleStatus"
+                    label="Sale Status"
+                    options={statusOptions}
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <FormikControl
+                    control="select"
+                    name="paymentStatus"
+                    label="Payment Status"
+                    options={paymentOptions}
+                  />
+                </Grid>
+
+                <Grid item xs={12}>
+                  <FormikControl
+                    control="textarea"
+                    name="saleNotes"
+                    label="Sale Note"
                   />
                 </Grid>
 
@@ -206,4 +202,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default AddSale;

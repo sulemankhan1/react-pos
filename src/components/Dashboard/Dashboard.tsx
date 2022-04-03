@@ -1,31 +1,30 @@
 import { Routes, Route } from "react-router-dom";
-import Sidebar from "../../utilities/Layout/Sidebar";
-import TopNav from "../../utilities/Layout/TopNav";
 import Home from "./Home";
 import Products from "./Products/Products";
-import { CardHeader, Grid, Card, Typography, CardContent } from "@mui/material";
+import DashboardLayout from "../../utilities/Layout/DashboardLayout";
+import Categories from "./Categories/Categories";
+import Sales from "./Sales/Sales";
+import Purchases from "./Purchases/Purchases";
+import People from "./People/People";
+import Reports from "./Reports/Reports";
+import Returns from "./Returns/Returns";
 
 function Dashboard() {
-  return (
-    <>
-      <TopNav />
-      <Grid container direction="row">
-        <Grid item xs={2.2}>
-          <Sidebar />
-        </Grid>
-        <Grid item mt={2} xs={9.8} p={2}>
-          <Card sx={{ width: "100%" }}>
-            <CardContent>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/products/*" element={<Products />} />
-              </Routes>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-    </>
+  const DashboardRoutes = (
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products/*" element={<Products />} />
+        <Route path="/categories/*" element={<Categories />} />
+        <Route path="/sales/*" element={<Sales />} />
+        <Route path="/purchases/*" element={<Purchases />} />
+        <Route path="/returns/*" element={<Returns />} />
+        <Route path="/people/*" element={<People />} />
+        <Route path="/reports/*" element={<Reports />} />
+      </Routes>
+    </div>
   );
+  return <DashboardLayout>{DashboardRoutes}</DashboardLayout>;
 }
 
 export default Dashboard;
