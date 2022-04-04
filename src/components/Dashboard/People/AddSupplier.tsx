@@ -7,43 +7,29 @@ import FormikControl from "../../../utilities/Formik/FormikControl";
 
 const initialValues = {
   name: "",
-  phoneNo: "",
   email: "",
-  gender: "",
-  userName: "",
-  password: "",
-  cPassword: "",
-  status: "",
-  notifyUser: false,
+  phoneNo: "",
+  gstNo: "",
+  address: "",
+  city: "",
+  state: "",
+  country: "",
 };
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Name is Required"),
-  phoneNo: Yup.string().required("PhoneNo is Required"),
   email: Yup.string()
     .email("Invalid email format")
     .required("Email is Required"),
-  gender: Yup.string().required("Please select user Gender"),
-  userName: Yup.string().required("User Name is Required"),
-  password: Yup.string().required("Password is Required"),
-  cPassword: Yup.string()
-    .oneOf([Yup.ref("password"), ""], "Passwords donot match")
-    .required("Please Enter Password again"),
-  status: Yup.string().required("State is Required"),
+  phoneNo: Yup.string().required("PhoneNo is Required"),
+  gstNo: Yup.string().required("GST No is Required"),
+  address: Yup.string().required("Address is Required"),
+  city: Yup.string().required("City is Required"),
+  state: Yup.string().required("State is Required"),
+  country: Yup.string().required("Country is Required"),
 });
 
-const genderOptions = [
-  { key: "Male", value: "male" },
-  { key: "Female", value: "female" },
-  { key: "Other", value: "other" },
-];
-
-const statusOptions = [
-  { key: "Active", value: "active" },
-  { key: "pending", value: "pending" },
-];
-
-function AddUser() {
+function AddSupplier() {
   const onSubmit = (values: any) => {
     // const onSubmit = (values: { [field: string]: any }) => {
     console.log("form values: ", values);
@@ -58,16 +44,16 @@ function AddUser() {
               underline="hover"
               color="inherit"
               component={RouteLink}
-              to="/people/users"
+              to="/people/suppliers"
             >
-              Users
+              Suppliers
             </Link>
-            <Typography color="text.primary">New User</Typography>
+            <Typography color="text.primary">New Supplier</Typography>
           </Breadcrumbs>
         </Grid>
         <Grid container mb={2}>
           <Grid item>
-            <Typography variant="h5">Add New User</Typography>
+            <Typography variant="h5">Add New Supplier</Typography>
           </Grid>
         </Grid>
         <Formik
@@ -90,26 +76,33 @@ function AddUser() {
                   <FormikControl
                     control="input"
                     type="text"
-                    name="phoneNo"
-                    label="Phone Number"
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <FormikControl
-                    control="input"
-                    type="text"
                     name="email"
                     label="Email"
                   />
                 </Grid>
 
+                <Grid item xs={12} md={6}>
+                  <FormikControl
+                    control="input"
+                    type="text"
+                    name="phoneNo"
+                    label="Phone Number"
+                  />
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <FormikControl
+                    control="input"
+                    type="text"
+                    name="gstNo"
+                    label="GST No"
+                  />
+                </Grid>
+
                 <Grid item xs={12}>
                   <FormikControl
-                    control="select"
-                    name="gender"
-                    label="Gender"
-                    options={genderOptions}
+                    control="textarea"
+                    name="address"
+                    label="Address"
                   />
                 </Grid>
 
@@ -117,46 +110,28 @@ function AddUser() {
                   <FormikControl
                     control="input"
                     type="text"
-                    name="userName"
-                    label="User Name"
-                  />
-                </Grid>
-
-                <Grid item xs={12} md={6}>
-                  <FormikControl
-                    control="input"
-                    type="password"
-                    name="password"
-                    label="Password"
-                  />
-                </Grid>
-                <Grid item xs={12} md={6}>
-                  <FormikControl
-                    control="input"
-                    type="password"
-                    name="cPassword"
-                    label="Confirm Password"
+                    name="city"
+                    label="City"
                   />
                 </Grid>
 
                 <Grid item xs={12}>
                   <FormikControl
-                    control="select"
-                    name="status"
-                    label="Status"
-                    options={statusOptions}
+                    control="input"
+                    type="text"
+                    name="state"
+                    label="State"
                   />
                 </Grid>
 
-                {/* TODO: SINGLE CHECKBOX IS NOT WORKING */}
-                {/* <Grid item xs={12}>
+                <Grid item xs={12}>
                   <FormikControl
-                    control="checkbox"
-                    name="notifyUser"
-                    label=""
-                    options={[{ key: "Notify User by Email", value: "true" }]}
+                    control="input"
+                    type="text"
+                    name="country"
+                    label="Country"
                   />
-                </Grid> */}
+                </Grid>
 
                 <Grid item xs={12}>
                   <Button
@@ -177,4 +152,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default AddSupplier;

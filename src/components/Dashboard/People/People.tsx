@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import AddCustomer from "./AddCustomer";
+import AddSupplier from "./AddSupplier";
 import AddUser from "./AddUser";
 import Customers from "./Customers";
 import Suppliers from "./Suppliers";
@@ -14,6 +15,7 @@ function People() {
       <Route path="/users" element={<Users />} />
       <Route path="/users/new" element={<AddUser />} />
       <Route path="/suppliers" element={<Suppliers />} />
+      <Route path="/suppliers/new" element={<AddSupplier />} />
     </Routes>
   );
 }

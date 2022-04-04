@@ -65,7 +65,7 @@ const initialMenuOptions = [
   {
     name: "People",
     active: false,
-    link: "/people",
+    link: "",
     icon: <PeopleAltIcon />,
     subMenu: [
       {
@@ -87,12 +87,6 @@ const initialMenuOptions = [
         icon: <ContactPhoneOutlinedIcon />,
       },
     ],
-  },
-  {
-    name: "Reports",
-    active: false,
-    link: "/reports",
-    icon: <AssessmentIcon />,
   },
 ];
 

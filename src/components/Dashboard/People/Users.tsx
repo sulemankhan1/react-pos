@@ -74,7 +74,7 @@ function Users() {
             variant="outlined"
             size="small"
             component={Link}
-            to="/people/customers/new"
+            to="/people/users/new"
           >
             <AddIcon /> New User
           </Button>

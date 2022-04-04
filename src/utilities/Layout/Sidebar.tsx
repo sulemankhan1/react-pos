@@ -12,6 +12,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { SidebarProps } from "./types";
 
+// TODO: on sidebar when on mobile clicking on mobile change route and doesn't open the dropdown
 const useStyles = makeStyles({
   sidebarContainer: {
     width: "100%",
@@ -65,13 +66,9 @@ function Sidebar(props: SidebarProps) {
               return (
                 <React.Fragment key={item.name}>
                   <ListItemButton
-                    component={Link}
-                    to={item.link}
                     selected={activeMenu === item.name}
                     onClick={() => {
                       setActiveMenu(item.name);
-                      // TODO: BELOW IS NOT WORKING
-                      if (setDrawerOpen) setDrawerOpen(false);
                       handleClick();
                     }}
                   >
@@ -110,7 +107,10 @@ function Sidebar(props: SidebarProps) {
                   component={Link}
                   to={item.link}
                   selected={activeMenu === item.name}
-                  onClick={() => setActiveMenu(item.name)}
+                  onClick={() => {
+                    setActiveMenu(item.name);
+                    if (setDrawerOpen) setDrawerOpen(false);
+                  }}
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.name} />
