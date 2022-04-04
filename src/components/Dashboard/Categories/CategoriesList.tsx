@@ -19,7 +19,7 @@ const columns: GridColDef[] = [
     renderCell: () => {
       return (
         <>
-          <IconButton aria-label="delete" size="small">
+          <IconButton aria-label="edit" size="small">
             <EditIcon fontSize="inherit" />
           </IconButton>
           <IconButton aria-label="delete" size="small">

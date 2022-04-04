@@ -11,9 +11,9 @@ const columns: GridColDef[] = [
   { field: "id", headerName: "ID", width: 50 },
   { field: "name", headerName: "Name", width: 120 },
   { field: "email", headerName: "Email", width: 70 },
-  { field: "company", headerName: "Company", width: 70 },
+  { field: "company", headerName: "Company", width: 120 },
   { field: "awardPoints", headerName: "Award Points", width: 120 },
-  { field: "group", headerName: "Groiup", width: 120 },
+  { field: "group", headerName: "Group", width: 120 },
   {
     field: "status",
     headerName: "Status",
@@ -34,7 +34,7 @@ const columns: GridColDef[] = [
     renderCell: () => {
       return (
         <>
-          <IconButton aria-label="delete" size="small">
+          <IconButton aria-label="edit" size="small">
             <EditIcon fontSize="inherit" />
           </IconButton>
           <IconButton aria-label="delete" size="small">

@@ -1,7 +1,7 @@
-import { GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { GridColDef } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
-import { Typography, Button, Grid, Chip, IconButton } from "@mui/material";
+import { Typography, Button, Grid, IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -21,7 +21,7 @@ const columns: GridColDef[] = [
     renderCell: () => {
       return (
         <>
-          <IconButton aria-label="delete" size="small">
+          <IconButton aria-label="edit" size="small">
             <EditIcon fontSize="inherit" />
           </IconButton>
           <IconButton aria-label="delete" size="small">
