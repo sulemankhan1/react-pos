@@ -1,3 +1,6 @@
+# React POS Dashboard with Material-UI, Redux, Typescript, Formik
+Made this project as a basic boilderplate of POS Admin panel 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
